@@ -22,11 +22,11 @@ namespace DapperWith4DatabaseCommunication.Repositories
                 //Create object for DynamicParameters class  for Passing  data to Storedprocedure input paramaters..
                 //The first argument is the name of the parameter as defined in the stored procedure, and the second argument is the value you want to pass to that parameter.
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@empname", empdetail.empname);
-                parameters.Add("@empsalary", empdetail.empsalary);
-                parameters.Add("@insertvalue", DbType.Int32, direction: ParameterDirection.Output);
+                parameters.Add(StoredprocedureParameters.EmployeeName, empdetail.empname);
+                parameters.Add(StoredprocedureParameters.EmployeeSalary, empdetail.empsalary);
+                parameters.Add(StoredprocedureParameters.Insertedvariable, DbType.Int32, direction: ParameterDirection.Output);
                 await con.ExecuteScalarAsync<int>(StoredprocedureNames.AddEmployee, parameters, commandType: CommandType.StoredProcedure);
-                int inserterdid = parameters.Get<int>("@insertvalue");
+                int inserterdid = parameters.Get<int>(StoredprocedureParameters.Insertedvariable);
                 return inserterdid;
 
             }
@@ -38,7 +38,7 @@ namespace DapperWith4DatabaseCommunication.Repositories
             using (IDbConnection con = _connectionFactory.HotelmanagementsqlConnectionString())
             {
                 DynamicParameters p = new DynamicParameters();
-                p.Add("@empid", empid);
+                p.Add(StoredprocedureParameters.EmployeeID, empid);
                 await con.ExecuteScalarAsync(StoredprocedureNames.DeleteEmployee, p, commandType: CommandType.StoredProcedure);
                 return true;
             }
@@ -50,7 +50,7 @@ namespace DapperWith4DatabaseCommunication.Repositories
             using (IDbConnection con = _connectionFactory.HotelmanagementsqlConnectionString())
             {
                 var p = new DynamicParameters();
-                p.Add("@empid", empid);
+                p.Add(StoredprocedureParameters.EmployeeID, empid);
                 var result = await con.QueryAsync<Employee>(StoredprocedureNames.GetEmployeeByEmpid, p, commandType: CommandType.StoredProcedure);
                 Employee emp = result.FirstOrDefault();//FirstOrDefault() it will return the first element of the sequence or a default value if the sequence contains no elements. In this case, it will return the first Employee object from the result set or null if there are no matching records.
                 return emp;
@@ -74,9 +74,9 @@ namespace DapperWith4DatabaseCommunication.Repositories
             using (IDbConnection con = _connectionFactory.HotelmanagementsqlConnectionString())
             {
                 var p = new DynamicParameters();
-                p.Add("@empid", empdetail.empid);
-                p.Add("@empname", empdetail.empname);
-                p.Add("@empsalary", empdetail.empsalary);
+                p.Add(StoredprocedureParameters.EmployeeID, empdetail.empid);
+                p.Add(StoredprocedureParameters.EmployeeName, empdetail.empname);
+                p.Add(StoredprocedureParameters.EmployeeSalary, empdetail.empsalary);
                 await con.ExecuteReaderAsync(StoredprocedureNames.UpdateEmployee, p, commandType: CommandType.StoredProcedure);
                 return true;
             }
