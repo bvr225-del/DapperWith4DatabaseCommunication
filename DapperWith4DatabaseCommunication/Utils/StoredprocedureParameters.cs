@@ -29,6 +29,8 @@
         public static string RestaurantName = "@restaurantname";
         public static string RestaurantLocation = "@restaurantlocation";
         public static string CreationDate = "@creationdate";
+        public static string RestaurantInsertedvariable = "@insertvalue";
+
         #endregion
 
     }
