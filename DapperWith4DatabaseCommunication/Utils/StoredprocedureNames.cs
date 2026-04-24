@@ -11,7 +11,7 @@
         #endregion
 
         #region order stored procedures
-        public static string AddOrder = "Usp_AddOrder_Without_Return";
+        public static string AddOrder = "Usp_AddOrder";
         public static string UpdateOrder = "Usp_UpdateOrder";
         public static string DeleteOrder = "Usp_DeleteOrder";
         public static string GetOrder = "Usp_GetOrder";

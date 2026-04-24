@@ -13,6 +13,8 @@
         public static string OrderId = "@orderid";
         public static string OrderName = "@ordername";
         public static string OrderLocation = "@orderlocation";
+        public static string OrderInsertedvariable = "@insertedvalue";
+
         #endregion
 
         #region Employee Parameters
