@@ -34,5 +34,10 @@
         public static string GetRestaurantById = "Usp_GetRestaurantById";
         #endregion
 
+        #region Logging storedprocedures
+        public static string AddLoggingMessages = "Usp_ProjectLevelLog";
+        #endregion
+
+
     }
 }
