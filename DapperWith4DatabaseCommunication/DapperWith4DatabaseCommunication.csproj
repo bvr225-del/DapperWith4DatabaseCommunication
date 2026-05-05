@@ -21,4 +21,8 @@
     <None Include="D:\My Examples Practise\.NET CORE\DapperWith4DatabaseCommunication\DapperWith4DatabaseCommunication\Interfaces\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>
