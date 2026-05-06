@@ -7,7 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.72" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\My Examples Practise\.NET CORE\DapperWith4DatabaseCommunication\DapperWith4DatabaseCommunication\Interfaces\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\My Examples Practise\.NET CORE\DapperWith4DatabaseCommunication\DapperWith4DatabaseCommunication\Interfaces\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 </Project>
