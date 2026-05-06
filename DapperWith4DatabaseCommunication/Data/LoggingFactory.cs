@@ -26,6 +26,22 @@ namespace DapperWith4DatabaseCommunication.Data
             }
 
         }
+        public async Task<bool> AddProjectLevelErrorlogAsync(string statusCode, string ErrorMessage, string StackTraceError, string InnerExceptionError)
+        {
+            using (IDbConnection con = _connectionFactory.HotelmanagementsqlConnectionString())
+            {
+                //DynamicParameters used in dapper,to pass the values to storedprocedure parameters.
+                DynamicParameters p = new DynamicParameters();
+                p.Add(StoredprocedureParameters.ErrorLog_StatusCode, statusCode);
+                p.Add(StoredprocedureParameters.ErrorLog_ErrorMessage, ErrorMessage);
+                p.Add(StoredprocedureParameters.ErrorLog_StackTraceError, StackTraceError);
+                p.Add(StoredprocedureParameters.ErrorLog_InnerExceptionError, InnerExceptionError);
+                await con.ExecuteScalarAsync(StoredprocedureNames.AddProjectLevelErrorlog, p, commandType: CommandType.StoredProcedure);
+                return true;
+            }
+
+        }
+
 
 
 

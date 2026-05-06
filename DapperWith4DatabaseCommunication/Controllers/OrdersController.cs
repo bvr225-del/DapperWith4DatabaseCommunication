@@ -130,13 +130,14 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
 
-            try
-            {
+            
+            
                 #region CustomError Raising Example
                 //int a = 10, b = 0;
                 //int result = a / b; //this will throw an exception because we are dividing by zero exception
                 #endregion
                 //throw new Exception("Custom Exception: OrdersController: get Api method Excution Failed");
+                throw new Exception("Custom Exception: OrdersController: GetOrders Api method Excution Failed");
 
                 var orderdata = await _ordersService.GetOrders();
                 if (orderdata == null)//here null means if you are not getting any data from db then we will return this statuscode:Status404NotFound
@@ -150,15 +151,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
                     return StatusCode(StatusCodes.Status200OK, orderdata);
                 }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
-               "OrdersController: GET Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"OrdersController: Inside GET Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
-            }
+            
 
         }
         [HttpGet]
