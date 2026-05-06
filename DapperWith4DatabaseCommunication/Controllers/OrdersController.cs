@@ -37,12 +37,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
-                //#region CustomError Raising Example
-                ////int a = 10, b = 0;
-                ////int result = a / b; //this will throw an exception because we are dividing by zero exception
-                //#endregion
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: OrdersController: Post Api method Excution Failed");
 
-                //throw new Exception("Custom Exception: EmployeeController: Post Api method Excution Failed");
 
                 if (!ModelState.IsValid)
                 {
@@ -85,6 +85,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             }
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: OrdersController:delete Api method Excution Failed");
+
                 var orderData = await _ordersService.DeleteOrderById(orderid);
 
                 if (orderData == null)
@@ -126,6 +132,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: OrdersController: get Api method Excution Failed");
+
                 var orderdata = await _ordersService.GetOrders();
                 if (orderdata == null)//here null means if you are not getting any data from db then we will return this statuscode:Status404NotFound
                 {
@@ -170,6 +182,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             }
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: OrdersController: GetById Api method Excution Failed");
+
                 var orderdata = await _ordersService.GetOrderById(orderid);
                 Log.Information("OrdersController: GetById Api method Excution Ended");//logg the message in text file using serilog
                 await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "GetById Api method Execution Ended");//logg the message in database using custom logging factory
@@ -206,6 +224,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: OrdersController: Put Api method Excution Failed");
+
                 if (!ModelState.IsValid)
                 {
 

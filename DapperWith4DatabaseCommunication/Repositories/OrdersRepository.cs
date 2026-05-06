@@ -66,7 +66,7 @@ namespace DapperWith4DatabaseCommunication.Repositories
                     Log.Information("OrdersRepository: DeleteEmployeeById method Excution Ended");
                     await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersRepository: DeleteOrderById method Excution Ended");//logg the message in database using custom logging factory
 
-                    Log.Information("OrdersRepository: DeleteEmployeeById method Excution Ended");
+                    Log.Information("OrdersRepository: DeleteOrderById method Excution Ended");
                     await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersRepository: DeleteOrderById method Excution Ended");//logg the message in database using custom logging factory
                     return deletedData;
                 }

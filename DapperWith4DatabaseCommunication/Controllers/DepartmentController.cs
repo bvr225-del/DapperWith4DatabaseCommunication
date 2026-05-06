@@ -37,6 +37,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: DepartmentController: Post Api method Excution Failed");
+
                 if (!ModelState.IsValid)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, ModelState);
@@ -80,6 +86,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: DepartmentController: Put Api method Excution Failed");
+
                 if (!ModelState.IsValid)
                 {
                     return StatusCode(StatusCodes.Status400BadRequest, ModelState);
@@ -123,6 +135,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             }
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: DepartmentController: Delete Api method Excution Failed");
+
                 var deptdata = await _departmentService.DeleteDepartment(deptId);
                 if (deptdata == null)
                 {
@@ -161,6 +179,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: DepartmentController: Get Api method Excution Failed");
+
                 var res = await _departmentService.GetDepartments();
                 if (res == null)
                 {
@@ -204,6 +228,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             }
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: DepartmentController: getById Api method Excution Failed");
+
                 var res = await _departmentService.GetDepartmentById(Deptid);
                 if (res == null)
                 {

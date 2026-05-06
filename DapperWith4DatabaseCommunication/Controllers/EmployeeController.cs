@@ -86,6 +86,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             }
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: EmployeeController: Delete Api method Excution Failed");
+
                 var empdata = await _employeeService.DeleteEmployeeById(empid);
                 if (empdata == null)
                 {//in db if you get empty data we need to retrun this statuscode:Status404NotFound
@@ -124,6 +130,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: EmployeeController: get Api method Excution Failed");
+
                 var empdata = await _employeeService.GetEmployees();
                 if (empdata == null)
                 {
@@ -168,6 +180,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
             }
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: EmployeeController: getByIdApi method Excution Failed");
+
                 var empdata = await _employeeService.GetEmployeeById(empid);
                 Log.Information("EmployeeController: get Api method Excution Ended");//logg the message in text file using serilog
                 await _loggingFactory.AddLoggingMessages("venkat", "Information", "get Api method Execution Ended");//logg the message in database using custom logging factory
@@ -204,6 +222,12 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
             try
             {
+                #region CustomError Raising Example
+                //int a = 10, b = 0;
+                //int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
+                //throw new Exception("Custom Exception: EmployeeController: Put Api method Excution Failed");
+
                 if (!ModelState.IsValid)
                 {
 
