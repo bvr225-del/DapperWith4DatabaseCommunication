@@ -32,9 +32,9 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Post Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"Post Api method called with RestaurantName:{restaurantdto.RestaurantName}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"Post Api method called with RestaurantLocation: {restaurantdto.RestaurantLocation}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Post Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Post Api method called with RestaurantName:{restaurantdto.RestaurantName}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Post Api method called with RestaurantLocation: {restaurantdto.RestaurantLocation}");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -53,7 +53,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 {
                     var restaurantData = await _restaurantService.AddRestaurant(restaurantdto);
                     Log.Information("RestaurantController: Post Api method Excution Ends");
-                    await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Post Api method Excution Ends");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Post Api method Excution Ends");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status201Created, restaurantData);
                 }
@@ -62,7 +62,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {//if you got any error we are using this statuscode:Status500InternalServerError
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "RestaurantController: Post Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Error", $"RestaurantController: Inside Post Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"RestaurantController: Inside Post Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }
@@ -77,8 +77,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: delete Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"delete Api method called with RestaurantId:{restaurantid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: delete Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"delete Api method called with RestaurantId:{restaurantid}");//logg the message in database using custom logging factory
             #endregion
 
             if (restaurantid < 0)
@@ -102,7 +102,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("RestaurantController:delete Api method Excution Ends");
-                    await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: delete Api method Excution Ends");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: delete Api method Excution Ends");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, "deleted successfully");
                 }
@@ -111,7 +111,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "RestaurantController: delete Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Error", $"RestaurantController: Inside delete Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"RestaurantController: Inside delete Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }
@@ -126,8 +126,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Get Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Get Api method called ");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Get Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Get Api method called ");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -146,7 +146,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("RestaurantController:Get Api method Excution Ends");
-                    await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Get Api method Excution Ends");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Get Api method Excution Ends");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, restaurantData);
                 }
@@ -155,7 +155,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "RestaurantController: Get Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Error", $"RestaurantController: Inside Get Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"RestaurantController: Inside Get Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }
@@ -171,8 +171,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: GetById Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"RestaurantController: GetById Api method called with RestaurantId:{restaurantid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: GetById Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"RestaurantController: GetById Api method called with RestaurantId:{restaurantid}");//logg the message in database using custom logging factory
             #endregion
 
             if (restaurantid < 0)
@@ -195,7 +195,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("RestaurantController: GetById Api method Excution Ends");
-                    await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: GetById Api method Excution Ends");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: GetById Api method Excution Ends");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, restaurantData);
                 }
@@ -205,7 +205,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "RestaurantController:  GetById Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Error", $"RestaurantController: Inside GetById Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"RestaurantController: Inside GetById Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server eror");
             }
@@ -224,12 +224,11 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Put Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with RestaurantId:{restaurantdto.Id}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with RestaurantName:{restaurantdto.RestaurantName}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with RestaurantLocation: {restaurantdto.RestaurantLocation}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with CreationDate: {restaurantdto.CreationDate}");//logg the message in database using custom logging factory
-
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Put Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with RestaurantId:{restaurantdto.Id}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with RestaurantName:{restaurantdto.RestaurantName}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with RestaurantLocation: {restaurantdto.RestaurantLocation}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"RestaurantController: Put Api method called with CreationDate: {restaurantdto.CreationDate}");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -255,7 +254,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                     else
                     {
                         Log.Information("RestaurantController: Put Api method Excution Ends");
-                        await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantController: Put Api method Excution Ends");//logg the message in database using custom logging factory
+                        await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantController: Put Api method Excution Ends");//logg the message in database using custom logging factory
 
                         return StatusCode(StatusCodes.Status200OK, restaurantData);
                     }
@@ -266,7 +265,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "RestaurantController:  Put Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Error", $"RestaurantController: Inside Put Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"RestaurantController: Inside Put Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }

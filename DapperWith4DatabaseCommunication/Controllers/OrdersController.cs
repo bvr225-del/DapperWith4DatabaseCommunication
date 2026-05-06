@@ -30,9 +30,9 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersController: Post Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"Post Api method called with OrderName:{orderdto.ordername}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"Post Api method called with OrderLocation:{orderdto.orderlocation}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "OrdersController: Post Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Post Api method called with OrderName:{orderdto.ordername}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Post Api method called with OrderLocation:{orderdto.orderlocation}");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -52,7 +52,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 {
                     var orderData = await _ordersService.AddOrder(orderdto);
                     Log.Information("OrdersController: Post Api method Excution Ends");
-                    await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersController: Post Api method Excution Ends");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "OrdersController: Post Api method Excution Ends");//logg the message in database using custom logging factory
                     return StatusCode(StatusCodes.Status201Created, orderData);
                 }
             }
@@ -60,7 +60,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {//if you got any error we are using this statuscode:Status500InternalServerError
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "OrdersController: Post Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_OrderLoggingMessages("venkat", "Error", $"OrdersController: Inside Post Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"OrdersController: Inside Post Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }
         }
@@ -74,8 +74,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersController: delete Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"delete Api method called with OrderId:{orderid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "OrdersController: delete Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"delete Api method called with OrderId:{orderid}");//logg the message in database using custom logging factory
             #endregion
 
 
@@ -100,7 +100,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("OrdersController: delete Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "delete Api method Execution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "delete Api method Execution Ended");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, "deleted successfully");
                 }
@@ -109,7 +109,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "OrdersController: delete Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_OrderLoggingMessages("venkat", "Error", $"OrdersController: Inside delete Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"OrdersController: Inside delete Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
@@ -125,8 +125,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersController: GET Api method Excution Starts");//log the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"GET Api method called");//log the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "OrdersController: GET Api method Excution Starts");//log the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"GET Api method called");//log the message in database using custom logging factory
             #endregion
 
 
@@ -146,7 +146,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("OrdersController: Get Api method Excution Ended");//log the message in text file using serilog
-                    await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "Get Api method Excution Ended");//log the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "Get Api method Excution Ended");//log the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, orderdata);
                 }
@@ -155,7 +155,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                "OrdersController: GET Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_OrderLoggingMessages("venkat", "Error", $"OrdersController: Inside GET Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"OrdersController: Inside GET Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }
@@ -171,8 +171,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersController: GetById Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"GetById Api method called with OrderId:{orderid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "OrdersController: GetById Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"GetById Api method called with OrderId:{orderid}");//logg the message in database using custom logging factory
             #endregion
 
 
@@ -190,7 +190,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
 
                 var orderdata = await _ordersService.GetOrderById(orderid);
                 Log.Information("OrdersController: GetById Api method Excution Ended");//logg the message in text file using serilog
-                await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "GetById Api method Execution Ended");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Information", "GetById Api method Execution Ended");//logg the message in database using custom logging factory
 
 
                 return StatusCode(StatusCodes.Status200OK, orderdata);
@@ -199,7 +199,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "OrdersController: delete Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_OrderLoggingMessages("venkat", "Error", $"OrdersController: Inside GetById Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"OrdersController: Inside GetById Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server eror");
             }
@@ -216,10 +216,10 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "OrdersController: Put Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"Put Api method called with OrderId:{orderdto.orderid}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"Put Api method called with OrderName:{orderdto.ordername}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", $"Put Api method called with OrderLocation:{orderdto.orderlocation}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "OrdersController: Put Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Put Api method called with OrderId:{orderdto.orderid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Put Api method called with OrderName:{orderdto.ordername}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Put Api method called with OrderLocation:{orderdto.orderlocation}");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -239,7 +239,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 {
                     var orderData = await _ordersService.UpdateOrder(orderdto);
                     Log.Information("OrdersController: Put Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_OrderLoggingMessages("venkat", "Information", "put Api method Execution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "put Api method Execution Ended");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, orderData);
                 }
@@ -248,7 +248,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "OrdersController: put Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_OrderLoggingMessages("venkat", "Error", $"OrdersController: Inside put Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"OrdersController: Inside put Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "server not found");
             }

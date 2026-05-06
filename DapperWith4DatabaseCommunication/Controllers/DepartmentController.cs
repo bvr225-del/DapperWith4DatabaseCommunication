@@ -30,9 +30,9 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "DepartmentController: Post Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"Post Api method called with DeptName:{department.deptname}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"Post Api method called with DeptLocation: {department.deptlocation}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "DepartmentController: Post Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Post Api method called with DeptName:{department.deptname}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Post Api method called with DeptLocation: {department.deptlocation}");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -51,7 +51,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 {
                     var Dept = await _departmentService.AddDepartment(department);
                     Log.Information("DepartmentController: Post Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "Post Api method Excution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "Post Api method Excution Ended");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status201Created, Dept);
                 }
@@ -61,7 +61,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "DepartmentController: Post Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Error", $"DepartmentController: Inside Post Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"DepartmentController: Inside Post Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
@@ -78,10 +78,10 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "DepartmentController: Post Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"Put Api method called with DeptId:{department.deptid}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"put Api method called with DeptName:{department.deptname}");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"Put Api method called with DeptLocation: {department.deptlocation}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "DepartmentController: Post Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Put Api method called with DeptId:{department.deptid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"put Api method called with DeptName:{department.deptname}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"Put Api method called with DeptLocation: {department.deptlocation}");//logg the message in database using custom logging factory
             #endregion
 
             try
@@ -100,7 +100,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 {
                     var Dept = await _departmentService.UpdateDepartment(department);
                     Log.Information("DepartmentController: Put Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "Put Api method Excution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "Put Api method Excution Ended");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, Dept);
                 }
@@ -110,7 +110,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "DepartmentController: Put Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Error", $"DepartmentController: Inside Put Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"DepartmentController: Inside Put Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
@@ -125,8 +125,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "DepartmentController: delete Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"delete Api method called with DeptId:{deptId}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "DepartmentController: delete Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"delete Api method called with DeptId:{deptId}");//logg the message in database using custom logging factory
             #endregion
 
             if (deptId < 0)
@@ -149,7 +149,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("DepartmentController: delete Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "delete Api method Excution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "delete Api method Excution Ended");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, deptdata);
                 }
@@ -159,7 +159,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "DepartmentController: delete Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Error", $"DepartmentController: Inside delete Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"DepartmentController: Inside delete Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
@@ -174,8 +174,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "DepartmentController: GET Api method Excution Starts");//log the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"GET Api method called");//log the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "DepartmentController: GET Api method Excution Starts");//log the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"GET Api method called");//log the message in database using custom logging factory
             #endregion
             try
             {
@@ -193,7 +193,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("DepartmentController: get Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "get Api method Excution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "get Api method Excution Ended");//logg the message in database using custom logging factory
 
                     return StatusCode(StatusCodes.Status200OK, res);
                 }
@@ -202,7 +202,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                 "DepartmentController: get Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Error", $"DepartmentController: Inside get Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"DepartmentController: Inside get Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
 
@@ -218,8 +218,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             #endregion
 
             #region Database Logging the mesages using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "DepartmentController: getById Api method Excution Starts");//logg the message in database using custom logging factory
-            await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", $"getById Api method called with DeptId:{Deptid}");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "DepartmentController: getById Api method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", $"getById Api method called with DeptId:{Deptid}");//logg the message in database using custom logging factory
             #endregion
 
             if (Deptid < 0)
@@ -242,7 +242,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
                 else
                 {
                     Log.Information("DepartmentController: getById Api method Excution Ended");//logg the message in text file using serilog
-                    await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Information", "getById Api method Excution Ended");//logg the message in database using custom logging factory
+                    await _loggingFactory.AddLoggingMessages("venkat", "Information", "getById Api method Excution Ended");//logg the message in database using custom logging factory
 
 
                     return StatusCode(StatusCodes.Status200OK, res);
@@ -252,7 +252,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             {
                 Log.Error("Custom Failure: {@RequestName}, {@Error}, {@DateTimeUtc}",
                "DepartmentController: getById Api method", ex.Message, DateTime.Today);
-                await _loggingFactory.Add_DepartmentLoggingMessages("venkat", "Error", $"DepartmentController: Inside getById Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Error", $"DepartmentController: Inside getById Api method Error Occured,Errormessage is:({ex.Message})-errorStacktrace:({ex.StackTrace})-error Innerexeception:({ex.InnerException})");//logg the message in database using custom logging factory
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
