@@ -19,7 +19,7 @@ namespace DapperWith4DatabaseCommunication.Services
         public async Task<int> AddRestaurant(RestaurantDto restaurantdetail)
         {
             Log.Information("RestaurantService: AddRestaurant method Excution Starts");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: AddRestaurant method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: AddRestaurant method Excution Starts");//logg the message in database using custom logging factory
 
             Restaurant restaurant = new Restaurant();
             restaurant.Id = restaurantdetail.Id;
@@ -36,7 +36,7 @@ namespace DapperWith4DatabaseCommunication.Services
             //to pass the data to repository we are not pass the falg value,falg is used to check the condition purpose only
             var res = await _restaurantRepository.AddRestaurant(restaurant);
             Log.Information("RestaurantService: AddRestaurant method Excution Ended");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: AddRestaurant method Excution Ended");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: AddRestaurant method Excution Ended");//logg the message in database using custom logging factory
 
             return res;
 
@@ -46,11 +46,11 @@ namespace DapperWith4DatabaseCommunication.Services
         public async Task<string> DeleteRestaurantById(int restaurantid)
         {
             Log.Information("RestaurantService: DeleteRestaurantById method Excution Starts");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: DeleteRestaurantById method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: DeleteRestaurantById method Excution Starts");//logg the message in database using custom logging factory
 
             var res = await _restaurantRepository.DeleteRestaurantById(restaurantid);
             Log.Information("RestaurantService: DeleteRestaurantById method Excution Ended");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: DeleteRestaurantById method Excution Ended");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: DeleteRestaurantById method Excution Ended");//logg the message in database using custom logging factory
             return res;
 
         }
@@ -58,7 +58,7 @@ namespace DapperWith4DatabaseCommunication.Services
         public async Task<RestaurantDto> GetRestaurantById(int restaurantid)
         {
             Log.Information("RestaurantService: GetRestaurantById method Excution Starts");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurantById method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurantById method Excution Starts");//logg the message in database using custom logging factory
 
             var res = await _restaurantRepository.GetRestaurantById(restaurantid);
             RestaurantDto restaurantdto = new RestaurantDto();
@@ -66,7 +66,7 @@ namespace DapperWith4DatabaseCommunication.Services
             restaurantdto.RestaurantName = res.RestaurantName;
             restaurantdto.RestaurantLocation = res.RestaurantLocation;
             Log.Information("RestaurantService: GetRestaurantById method Excution Ended");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurantById method Excution Ended");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurantById method Excution Ended");//logg the message in database using custom logging factory
 
             return restaurantdto;
 
@@ -75,7 +75,7 @@ namespace DapperWith4DatabaseCommunication.Services
         public async Task<List<RestaurantDto>> GetRestaurants()
         {
             Log.Information("RestaurantService: GetRestaurants method Excution Starts");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurants method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurants method Excution Starts");//logg the message in database using custom logging factory
 
             List<RestaurantDto> lstrestaurantdto = new List<RestaurantDto>();
             var res = await _restaurantRepository.GetRestaurants();
@@ -87,7 +87,7 @@ namespace DapperWith4DatabaseCommunication.Services
                 restaurantdto.RestaurantLocation = restaurant.RestaurantLocation;
                 lstrestaurantdto.Add(restaurantdto);//Add the restaurant to list here
                 Log.Information("RestaurantService: GetRestaurants method Excution Ended");
-                await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurants method Excution Ended");//logg the message in database using custom logging factory
+                await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: GetRestaurants method Excution Ended");//logg the message in database using custom logging factory
 
 
             }
@@ -97,7 +97,7 @@ namespace DapperWith4DatabaseCommunication.Services
         public async Task<string> UpdateRestaurant(RestaurantDto restaurantdetail)
         {
             Log.Information("RestaurantService: UpdateRestaurant method Excution Starts");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService:UpdateRestaurant method Excution Starts");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService:UpdateRestaurant method Excution Starts");//logg the message in database using custom logging factory
 
             Restaurant obj = new Restaurant();
             obj.Id = restaurantdetail.Id;
@@ -105,7 +105,7 @@ namespace DapperWith4DatabaseCommunication.Services
             obj.RestaurantLocation = restaurantdetail.RestaurantLocation;
             var res = await _restaurantRepository.UpdateRestaurant(obj);
             Log.Information("RestaurantService:UpdateRestaurant method Excution Ended");
-            await _loggingFactory.Add_RestaurantLoggingMessages("venkat", "Information", "RestaurantService: UpdateRestaurant method Excution Ended");//logg the message in database using custom logging factory
+            await _loggingFactory.AddLoggingMessages("venkat", "Information", "RestaurantService: UpdateRestaurant method Excution Ended");//logg the message in database using custom logging factory
 
             return res;
 
