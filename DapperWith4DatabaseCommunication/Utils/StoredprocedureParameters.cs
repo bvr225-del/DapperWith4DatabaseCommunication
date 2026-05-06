@@ -40,6 +40,14 @@
         public static string Logging_MessageTemplate = "@MessageTemplate";
         #endregion
 
+        #region ErrorLog Parameters
+        public static string ErrorLog_StatusCode = "@StatusCode";
+        public static string ErrorLog_ErrorMessage = "@ErrorMessage";
+        public static string ErrorLog_StackTraceError = "@StackTraceError";
+        public static string ErrorLog_InnerExceptionError = "@InnerExceptionError";
+        #endregion
+
+
 
     }
 }
