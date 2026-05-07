@@ -44,20 +44,90 @@ builder.Services.AddScoped<IRestaurantService, RestaurantService>();//register t
 
 //========================================================================================================
 
-var app = builder.Build();
+#region middlewaresConfigurationSection
+var app = builder.Build();//app is requtest pipeline,it is created at runtime.
+                          //all middleware we need to configure/register /adding to this request pipeline
+                          //whenever if you add any middleware to request pipeleine order wise it will exceute.
+                          //for inline middlewares all logic written in the app.use() method and for custom middlewares we need to create a class and write the logic in that class and then we need to register that custom middleware in the program.cs file using the app.UseMiddleware method.
+                          // middleware naming convention starts with use keyword.                         
+                          //we must register the middle wares to request pipleline.based on order you register.same order it will excute.
+                          //app.Use(async (context, next) => {//app.Use for Inline middlewares
+                          //    await context.Response.WriteAsync("Hello I am From use1");
+                          //    await next.Invoke();
+                          //});
+                          //app.Use(async (context, next) => {//app.Use for Inline middlewares
+                          //    await context.Response.WriteAsync("Hello I am From use2");
+                          //    await next.Invoke();
+                          //});
+/*
+ * syntax:Adds a custom  middleware type to the application request Pipeline like below syntax .
+ * =============================================================================================
+  app.UseMiddleWare<CustomMiddlewareClassName>();we must register like this way.
+//<>   we called its as placeholder  .or AngleBracktes
+//In that PlaceHolder (<Custommiddlware classname>)Write here
+//app.UseMiddleware<RequestLoggingMiddleware>();//Created Custom Middleware like this way.
+// Register the middlewares in  HTTP request pipeline.
+*/
 //custom middlewares we need to register in the program.cs file of the web api project using the UseMiddleware method   app object. The UseMiddleware method is used to add custom middleware components to the application's request processing pipeline. By adding the GlobalErrorHandlerMiddleware, you ensure that any unhandled exceptions that occur during the processing of HTTP requests will be caught and handled by this middleware, allowing you to return a standardized error response to the client and log the error details as needed.
-app.UseMiddleware<GlobalErrorHandlerMiddleware>();//This line of code is used to add the GlobalErrorHandlerMiddleware to the application's request processing pipeline. The UseMiddleware method is an extension method that allows you to add custom middleware components to the pipeline. By adding the GlobalErrorHandlerMiddleware, you ensure that any unhandled exceptions that occur during the processing of HTTP requests will be caught and handled by this middleware, allowing you to return a standardized error response to the client and log the error details as needed.
-
-
+app.UseMiddleware<GlobalErrorHandlerMiddleware>();//Created Custom Middleware like this way.
+app.UseMiddleware<RequestLoggingMiddleware>();//Created Custom Middleware like this way.
+//This line of code is used to add the GlobalErrorHandlerMiddleware to the application's request processing pipeline. The UseMiddleware method is an extension method that allows you to add custom middleware components to the pipeline. By adding the GlobalErrorHandlerMiddleware, you ensure that any unhandled exceptions that occur during the processing of HTTP requests will be caught and handled by this middleware, allowing you to return a standardized error response to the client and log the error details as needed.
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+    app.UseSwagger();//Predefined Middlewares,created by the swagger team to generate the swagger documentation for the api.
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
+app.UseAuthorization();//Predefined Middlewares,created by the Microsoft team to handle the authorization in the api.
 
 app.MapControllers();
 
-app.Run();
+app.Run();//App.run() is a termainal middleware,it ends the application pipeline without calling the next middleware.always app.run() is last in program.cs
+          //always it should be ending only.
+          //(Here We removed App.Run() method,without app.run() if you run the application it will throw error like "WebServer failed to listen on port 5296")
+          //After app.run () method if you write any code it will not exceute.because app.run() does not having next.due to that exceution is stopped in this  line.
+
+
+
+#endregion
+
+
+
+/*
+ 1.What is Middleware? how  many Ways we create the middleware's ?
+A)=>Middleware process Request and Response to the Application pipeline.
+Middleware executed in Sequence order.
+Whatever order you register  in the application pipeline same order it will execute.
+=>Middleware take the request and process it and next it will pass the request to next middleware and then next middleware will process the request and then it will pass the request to next middleware.
+=>if middleware executes successfully it will pass the request to next middleware.
+if its fail/Shortcurit it will stop the middleware execution and throwing the error.
+=>all middlewares we need to register in the program.cs having a inbuilt request pipeline is there,
+that is called "app".in this app we need to register our middlewares to application pipeline.
+middleware naming convestion Starts with use keyword.
+=>we can create the middlewares 2 ways.
+1)inline middleware.
+2)custom middleware.
+and also we can use predefined middlewares as per requirment like Swagger, authentication,authorization,exception handling,logging etc.
+==================================================================================================================================
+//for inline middlewares all logic written in the app.use() method and for custom middlewares we need to create a class and write the logic in that class and then we need to register that custom middleware in the program.cs file using the app.UseMiddleware method.
+1)inline middleware:
+====================
+=>we can create the inline middleware in program.cs file using app.use() method,
+and write the logic of the middleware inside the app.use() method
+
+2)custom middleware:
+======================
+=>Custom middlewares we will create as per our project requirement.
+=>we need to register the custom middleware in the program.cs file  using the app.UseMiddleware method .
+=> UseMiddleware method is used to add custom middleware components to the application's request  pipeline. 
+ syntax for Adds a custom  middleware type to the application request Pipeline is .
+ =============================================================================================
+  app.UseMiddleWare<CustomMiddlewareClassName>();we must register like this way.
+=>if any exception is raised in the application, we can catch that exception in the Global exceptioncustom middleware 
+and we can log that exception in the database by In projectlevelerrorlog table   and also we can log that exception 
+in the text file by using serilog
+and also  we can log that exception in azure cloud by using azure application insights service.
+=>we can create the custom middleware by creating a class and implementing the logic of the middleware in that class.
+ 
+*/
