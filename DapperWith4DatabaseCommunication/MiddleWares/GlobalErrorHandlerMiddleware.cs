@@ -94,3 +94,28 @@ namespace DapperWith4DatabaseCommunication.MiddleWares
         }
     }
 }
+/*
+  * in sql server we can see the logs in below tables in hotelmanagement database:
+  * Select * from ProjectLevelLog:(this table is used to log the normal messages in database)
+  * Select * from ProjectLevelErrorlog:(this table is used to log the error messages in database)
+ */
+/*1)How to create custom middleware in ASP.NET Core?
+
+=>Custom middlewares we will create as per our project requirement.
+=>we can create the custom middleware by creating a new class and 
+Pass the Predefined RequestDelegate  as argument to the constructor and next create invoke async method ,in that 
+method argument pass httpcontext as argument .here httpcontext is log the current request and inside method write the
+try,catch blocks,in that catch block log the exceptions.
+we can log the exception details 3 ways
+1.using seriolog we can log the messages in text file.
+2.using sqlservr error log table we can log the messages in database.
+3.using azure application insights service we can log the messages in azure cloud.
+=>we need to register the custom middleware in the program.cs file  using the app.UseMiddleware method .
+=> UseMiddleware method is used to add custom middleware components to the application's request  pipeline. 
+  app.UseMiddleWare<CustomMiddlewareClassName>();we must register  in program.cs.
+=>if any exception is raised in the application, 
+we can catch that exceptions in the Global exception custom middleware. 
+
+
+
+*/
