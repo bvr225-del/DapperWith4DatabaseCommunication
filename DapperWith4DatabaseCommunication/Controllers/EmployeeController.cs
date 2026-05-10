@@ -1,11 +1,17 @@
 ﻿using DapperWith4DatabaseCommunication.Dtos;
 using DapperWith4DatabaseCommunication.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 namespace DapperWith4DatabaseCommunication.Controllers
 {
+    //to provide the security to this controller api methods use [Authorize] attribute.
+    //if you pass the token to this api calling ,then only you can access this employee controller api methods.
+    //without token you can't access this employee controller api methods.
+    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase

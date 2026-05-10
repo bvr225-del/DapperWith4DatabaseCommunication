@@ -3,7 +3,11 @@ using DapperWith4DatabaseCommunication.Interfaces;
 using DapperWith4DatabaseCommunication.MiddleWares;
 using DapperWith4DatabaseCommunication.Repositories;
 using DapperWith4DatabaseCommunication.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
 
 //this program.cs is divided into 2 sections.
 //===========================================================
@@ -12,8 +16,6 @@ using Serilog;
 //this conatiner will load your depencies and then it will inject those depencies to the controller class by using constructor injection and then we can use those depencies in the controller class to perform the required CRUD operations.
 
 #region inbuilt dependency injection containerSection.
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +24,33 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//================================Token based Authentication code added here========
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
+//builder.Services.AddAuthorization();
+builder.Services.AddSwaggerGen(c =>
+c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+{
+    Name = "Authorization",
+    Type = SecuritySchemeType.Http,
+    Scheme = "Bearer",
+    BearerFormat = "JWT",
+    In = ParameterLocation.Header,
+    Description = "Please Enter Token value",
+}));
+//========================================================================
+//We need to register Serilog to our dependency Injection Conatiner. The UseSerilog method is used to configure Serilog as the logging provider for the application. The configuration.ReadFrom.Configuration(context.Configuration) part tells Serilog to read its configuration settings from the application's configuration, which can be defined in appsettings.json or other configuration sources.
 
 builder.Host.UseSerilog((context, configuration) =>
 configuration.ReadFrom.Configuration(context.Configuration));
@@ -140,6 +169,7 @@ if (app.Environment.IsDevelopment())
 //UseCors is a predefined middleware,created by the Microsoft team to handle the cross-origin resource sharing in the api level.
 app.UseCors();//add the cors middleware to the application pipeline and specify the policy name that we defined in the AddCors method of the builder object in the dependency injection container section.
 //app.UseCors("bankPolicy");//this cors is for specific policy,if you want to enable the cors for specific policy then you need to specify the policy name in the app.useCors() method like this way.
+app.UseAuthentication();//This is predefined Middleware,created by the Microsoft team to handle the Authentication in the api.
 app.UseAuthorization();//Predefined Middlewares,created by the Microsoft team to handle the authorization in the api.
 
 app.MapControllers();
@@ -152,3 +182,59 @@ app.Run();//App.run() is a termainal middleware,it ends the application pipeline
 
 
 #endregion
+/*
+ 1.What is Middleware? how  many Ways we create the middleware's ?
+A)=>Middleware process Request and Response to the Application pipeline.
+Middleware executed in Sequence order.
+Whatever order you register  in the application pipeline same order it will execute.
+=>Middleware take the request and process it and next it will pass the request to next middleware and then next middleware will process the request and then it will pass the request to next middleware.
+=>if middleware executes successfully it will pass the request to next middleware.
+if its fail/Shortcurit it will stop the middleware execution and throwing the error.
+=>all middlewares we need to register in the program.cs having a inbuilt request pipeline is there,
+that is called "app".in this app we need to register our middlewares to application pipeline.
+middleware naming convestion Starts with use keyword.
+=>we can create the middlewares 2 ways.
+1)inline middleware.
+2)custom middleware.
+and also we can use predefined middlewares as per requirment like Swagger, authentication,authorization,exception handling,logging etc.
+==================================================================================================================================
+//for inline middlewares all logic written in the app.use() method and for custom middlewares we need to create a class and write the logic in that class and then we need to register that custom middleware in the program.cs file using the app.UseMiddleware method.
+1)inline middleware:
+====================
+=>we can create the inline middleware in program.cs file using app.use() method,
+and write the logic of the middleware inside the app.use() method
+
+2)custom middleware:
+======================
+=>Custom middlewares we will create as per our project requirement.
+=>we need to register the custom middleware in the program.cs file  using the app.UseMiddleware method .
+=> UseMiddleware method is used to add custom middleware components to the application's request  pipeline. 
+  app.UseMiddleWare<CustomMiddlewareClassName>();we must register like this way.
+=>if any exception is raised in the application, we can catch that exception in the Global exceptioncustom middleware 
+and we can log that exception in the database by In projectlevelerrorlog table   and also we can log that exception 
+in the text file by using serilog
+and also  we can log that exception in azure cloud by using azure application insights service.
+=>we can create the custom middleware by creating a class and implementing the logic of the middleware in that class.
+ 
+
+
+
+
+
+######################################################
+1.what is th diffrence between app.use() and app.run() and app.map() methods in the program.cs file of the web api project?
+A)=>app.use():
+==============
+method is used to add the middleware to the application pipeline and it will call the next middleware in the pipeline by using next.invoke() method. 
+if you are not calling next.invoke() method in the app.use() method, it will not call the next middleware in the pipeline and it will stop the execution of the middleware.
+B)=>app.run():
+=================
+method is a terminal middleware, it ends the application pipeline without calling the next middleware.
+always app.run() is last in program.cs file.
+C)=>app.map():
+===============
+method is used to branch the request pipeline based on the request path. 
+it allows you to define different middleware pipelines for different request paths.
+
+
+*/
