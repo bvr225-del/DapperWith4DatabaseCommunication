@@ -42,7 +42,7 @@
         public static string AddProjectLevelErrorlog = "Usp_AddProjectLevelErrorlog";
         #endregion
 
-        #region TokenBasedAuthentification storedprocedures
+        #region TokenBasedAuthentication storedprocedures
         public static readonly string GetUserRolesInformation = "Usp_GetUserRolesInformation";
 
         public static readonly string SignIn = "Usp_LoginCheck";

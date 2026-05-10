@@ -31,5 +31,17 @@ namespace DapperWith4DatabaseCommunication.Repositories
 
             }
         }
+        public async Task<UserSignInResponse> UserRolesMapping(UserRole userRoleObj)
+        {
+            using (IDbConnection con = _connectionFactory.HotelmanagementsqlConnectionString())
+            {
+                var p = new DynamicParameters();
+                p.Add("@RoleId", userRoleObj.RoleId);
+                p.Add("@UserId", userRoleObj.UserId);
+                var result = await con.QuerySingleAsync<UserSignInResponse>(StoredprocedureNames.Usp_UserRolesMapping, p, commandType: CommandType.StoredProcedure);
+                return result;
+            }
+        }
+
     }
 }

@@ -25,5 +25,13 @@ namespace DapperWith4DatabaseCommunication.Services
             var result = await _userRepository.UserResgistration(users);
             return result;
         }
+        public async Task<UserSignInResponse> UserRolesMapping(UserRoleDTO userRoleDTOObj)
+        {
+            UserRole userRole = new UserRole();
+            userRole.UserId = userRoleDTOObj.UserId;
+            userRole.RoleId = userRoleDTOObj.RoleId;
+            return await _userRepository.UserRolesMapping(userRole);
+        }
+
     }
 }
