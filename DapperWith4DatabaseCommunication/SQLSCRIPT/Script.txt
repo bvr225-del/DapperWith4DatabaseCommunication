@@ -1,0 +1,124 @@
+﻿Create Table Users(Id Int Identity(1,1) constraint PK_Users_Id Primary Key,UserName varchar(max),Password nvarchar(max),EmailId varchar(max),PhoneNumber varchar(max),Address varchar(max),IsActive bit,CreatedDate datetime)
+select * from Users
+Create Table Roles(Id Int Identity(1,1) constraint PK_Roles_Id Primary Key,RoleName varchar(max),IsActive bit,CreatedDate datetime)
+select * from Roles
+Create Table UserRoles(Id Int Identity(1,1) constraint PK_UserRoles_Id Primary Key,RoleId int,UserId int,CreatedDate datetime)
+select * from UserRoles
+/*-- =============================================        
+-- Author: Srikanth        
+-- Create Date: 25-MAY-2024        
+-- Description: this storedprocedure used to UserResgistration  purpose used.       
+----Exec Usp_UserResgistration @Username='koti',@Password='koti',@EmailId='koti@gmail.com',@PhoneNumber='1234567890',@Address='hyd',@IsActive=1
+--select * from users    
+
+-- ============================================*/  
+
+Create procedure Usp_UserResgistration(@Username varchar(max),@Password nvarchar(max),@EmailId varchar(max),@PhoneNumber varchar(max),@Address varchar(max),@IsActive bit)
+as
+begin
+set nocount on
+Insert into Users(UserName,Password,EmailId,PhoneNumber,Address,IsActive,CreatedDate) values(@Username,@Password,@EmailId,@PhoneNumber,@Address,@IsActive,GETDATE())
+select '200' 'StatusCode','User Registerd Successfully' 'StatusMessage'  
+end
+/*-- =============================================        
+-- Author: Srikanth        
+-- Create Date: 25-MAY-2024        
+-- Description: this storedprocedure used to RolesResgistratio  purpose used.       
+--Exec Usp_RolesResgistration @RoleName='user',@IsActive=1
+--select * from Roles    
+
+-- ============================================*/  
+
+Create procedure Usp_RolesResgistration(@RoleName varchar(max),@IsActive bit)
+as
+begin
+set nocount on
+Insert into Roles(RoleName,IsActive,CreatedDate) values(@RoleName,@IsActive,GETDATE())
+select '200' 'StatusCode','Role Created Successfully' 'StatusMessage'    
+end
+/*-- =============================================        
+-- Author: Srikanth        
+-- Create Date: 25-MAY-2024        
+-- Description: this storedprocedure used to UserRolesMapping purpose used.       
+--Exec Usp_UserRolesMapping @RoleId=1,@UserId=1
+--select * from UserRoles    
+-- ============================================*/  
+
+create procedure Usp_UserRolesMapping(@RoleId int,@UserId int)
+as
+begin 
+set nocount on
+Insert into UserRoles(RoleId,UserId,CreatedDate) values(@RoleId,@UserId,GETDATE())
+select '200' 'StatusCode','UserRoleMapping  Successfully' 'StatusMessage'  
+end
+
+==============
+/*-- =============================================        
+-- Author: Srikanth        
+-- Create Date: 25-MAY-2024        
+-- Description: Check Login details        
+-- EXEC [dbo].[Usp_LoginCheck] @Username='lavanysch',@password='123'  
+-- EXEC [dbo].[Usp_LoginCheck] @Username='koti',@password='koti' 
+--select * from users    
+--select count(1) from users where Username='koti'and password='koti'
+-- ============================================*/  
+Create procedure Usp_LoginCheck(@UserName varchar(max),@Password nvarchar(max))
+as
+begin 
+set nocount on
+if((select count(1) from users where LOWER(UserName)=LOWER(@Username) and password=@password)>0)    
+begin    
+
+select '200' 'StatusCode','User details valid' 'StatusMessage'    
+end    
+else    
+begin    
+select '204' 'StatusCode','User details are not valid' 'StatusMessage'    
+end   
+end
+===================
+/*-- =============================================          
+
+-- Author: Srikanth          
+
+-- Create Date: 25-MAY-2024          
+
+-- Description: Check Login details          
+
+-- EXEC [dbo].[Usp_GetUserRolesInformation] @Username='koteswar'    
+
+-- EXEC [dbo].[Usp_GetUserRolesInformation] @Username='rayudu'   
+
+--select * from users      
+
+--select count(1) from users where Username='koti'  
+
+-- ============================================*/    
+
+CREATE procedure [dbo].[Usp_GetUserRolesInformation](@UserName varchar(max))  
+
+as  
+
+begin   
+
+set nocount on  
+
+if((select count(1) from users where LOWER(UserName)=LOWER(@Username))>0)      
+
+begin      
+
+select u.UserName,u.EmailId,u.PhoneNumber,u.Address,u.IsActive,r.RoleName from users u 
+
+inner join UserRoles ur  on u.Id =ur.UserId  
+
+inner join Roles r  on r.Id =ur.RoleId   
+
+where LOWER(u.UserName)=LOWER(@UserName)  
+
+end       
+
+end  
+ 
+
+ 
+

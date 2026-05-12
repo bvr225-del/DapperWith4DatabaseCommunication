@@ -47,8 +47,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             await _loggingFactory.AddLoggingMessages(userName, "Information", $"Post Api method Inputparamter EmployeeSalary:{empdto.empsalary}");//logg the message in database using custom logging factory
             #endregion
             #region CustomError Raising Example
-            //int a = 10, b = 0;
-            //int result = a / b; //this will throw an exception because we are dividing by zero exception
+            int a = 10, b = 0;
+            int result = a / b; //this will throw an exception because we are dividing by zero exception
             #endregion
 
             //throw new Exception("Custom Exception: EmployeeController: Post Api method Excution Failed");

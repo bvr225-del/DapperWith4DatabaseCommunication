@@ -160,7 +160,7 @@ var app = builder.Build();//app is requtest pipeline,it is created at runtime.
 // Register the middlewares in  HTTP request pipeline.
 */
 //custom middlewares we need to register in the program.cs file of the web api project using the UseMiddleware method   app object. The UseMiddleware method is used to add custom middleware components to the application's request processing pipeline. By adding the GlobalErrorHandlerMiddleware, you ensure that any unhandled exceptions that occur during the processing of HTTP requests will be caught and handled by this middleware, allowing you to return a standardized error response to the client and log the error details as needed.
-app.UseMiddleware<GlobalErrorHandlerMiddleware>();//Registering the  Custom Middleware to appliction pipeline like this way.
+app.UseMiddleware<GlobalExceptionMiddleware>();//Registering the  Custom Middleware to appliction pipeline like this way.
 app.UseMiddleware<RequestLoggingMiddleware>();//Registering the  Custom Middleware to appliction pipeline like this way.
 //This line of code is used to add the GlobalErrorHandlerMiddleware to the application's request processing pipeline. The UseMiddleware method is an extension method that allows you to add custom middleware components to the pipeline. By adding the GlobalErrorHandlerMiddleware, you ensure that any unhandled exceptions that occur during the processing of HTTP requests will be caught and handled by this middleware, allowing you to return a standardized error response to the client and log the error details as needed.
 // Configure the HTTP request pipeline.
