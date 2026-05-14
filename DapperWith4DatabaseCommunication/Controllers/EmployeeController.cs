@@ -1,5 +1,6 @@
 ﻿using DapperWith4DatabaseCommunication.Dtos;
 using DapperWith4DatabaseCommunication.Interfaces;
+using DapperWith4DatabaseCommunication.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +37,9 @@ namespace DapperWith4DatabaseCommunication.Controllers
             var userName = _httpContextAccessor.HttpContext?.User?.FindFirst("UserName")?.Value ?? "Unknown";
 
             #region Serilog Logging the mesages 
-            Log.Information("EmployeeController: Post Api method Excution Starts and Current Loggedin username:", userName);
-            Log.Information("EmployeeController: Post Api method Inputparamter EmployeeName:", empdto.empname);
-            Log.Information("EmployeeController: Post Api method Inputparamter EmployeeSalary:", empdto.empsalary);
+            Log.Information($"EmployeeController: Post Api method Excution Starts and Current Loggedin username:{userName}");
+            Log.Information($"EmployeeController: Post Api method Inputparamter EmployeeName: {empdto.empname}");
+            Log.Information($"EmployeeController: Post Api method Inputparamter EmployeeSalary:{empdto.empsalary}");
             #endregion
 
             #region Database Logging the mesages using custom logging factory
@@ -46,20 +47,24 @@ namespace DapperWith4DatabaseCommunication.Controllers
             await _loggingFactory.AddLoggingMessages(userName, "Information", $"Post Api method  Inputparamter EmployeeName:{empdto.empname}");//logg the message in database using custom logging factory
             await _loggingFactory.AddLoggingMessages(userName, "Information", $"Post Api method Inputparamter EmployeeSalary:{empdto.empsalary}");//logg the message in database using custom logging factory
             #endregion
-            #region CustomError Raising Example
-            int a = 10, b = 0;
-            int result = a / b; //this will throw an exception because we are dividing by zero exception
-            #endregion
-
-            //throw new Exception("Custom Exception: EmployeeController: Post Api method Excution Failed");
-            if (!ModelState.IsValid)
+            var validationMessages = ValidationMessages.AddEmployee(empdto);
+            if (validationMessages.Length > 0)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+                return StatusCode(StatusCodes.Status400BadRequest, Convert.ToString(validationMessages));
             }
+            //throw new Exception("Custom Exception: EmployeeController: Post Api method Excution Failed");
+            //if (!ModelState.IsValid)
+            //{
+            //    return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+            //}
             else
             {
+                #region CustomError Raising Example
+                int a = 10, b = 0;
+                int result = a / b; //this will throw an exception because we are dividing by zero exception
+                #endregion
                 var empdata = await _employeeService.AddEmployees(empdto);
-                Log.Information("EmployeeController: Post Api method Excution Ended and Current Loggedin username:", userName);//logg the message in text file using serilog
+                Log.Information($"EmployeeController: Post Api method Excution Ended and Current Loggedin username:{userName}");//logg the message in text file using serilog
                 await _loggingFactory.AddLoggingMessages(userName, "Information", "Post Api method Excution Ended");//logg the message in database using custom logging factory
                 return StatusCode(StatusCodes.Status201Created, empdata);
             }
@@ -71,8 +76,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             //here read the username from token and this username used for logging purpose.
             var userName = _httpContextAccessor.HttpContext?.User?.FindFirst("UserName")?.Value ?? "Unknown";
             #region Serilog Logging the mesages 
-            Log.Information("EmployeeController: delete Api method Excution Starts and Current Loggedin username:", userName);//logg the message in text file using serilog
-            Log.Information("EmployeeController: delete Api method Inputparamter empid is", empid);//here capture th empid 
+            Log.Information($"EmployeeController: delete Api method Excution Starts and Current Loggedin username:{userName}");//logg the message in text file using serilog
+            Log.Information($"EmployeeController: delete Api method Inputparamter empid is{empid}");//here capture th empid 
 
             #endregion
 
@@ -139,7 +144,7 @@ namespace DapperWith4DatabaseCommunication.Controllers
             var userName = _httpContextAccessor.HttpContext?.User?.FindFirst("UserName")?.Value ?? "Unknown";
 
             #region Serilog Logging the mesages 
-            Log.Information("EmployeeController: GetEmployees Api method Excution Starts and Current Loggedin username:", userName);
+            Log.Information($"EmployeeController: GetEmployees Api method Excution Starts and Current Loggedin username:{userName}");
             #endregion
 
             #region Database Logging the mesages using custom logging factory
@@ -166,8 +171,8 @@ namespace DapperWith4DatabaseCommunication.Controllers
             //here read the username from token and this username used for logging purpose.
             var userName = _httpContextAccessor.HttpContext?.User?.FindFirst("UserName")?.Value ?? "Unknown";
             #region Serilog Logging the mesages 
-            Log.Information("EmployeeController: Get Api method Excution Starts and Current Loggedin username:", userName);//logg the message in text file using serilog
-            Log.Information("EmployeeController: Get Api method Inputparamter empid is", empid);//here capture th empid 
+            Log.Information($"EmployeeController: Get Api method Excution Starts and Current Loggedin username:{userName}");//logg the message in text file using serilog
+            Log.Information($"EmployeeController: Get Api method Inputparamter empid is {empid}");//here capture th empid 
 
             #endregion
 
@@ -194,10 +199,10 @@ namespace DapperWith4DatabaseCommunication.Controllers
             //here read the username from token and this username used for logging purpose.
             var userName = _httpContextAccessor.HttpContext?.User?.FindFirst("UserName")?.Value ?? "Unknown";
             #region Serilog Logging the mesages 
-            Log.Information("EmployeeController: put Api method Excution Starts and Current Loggedin username:", userName);//logg the message in text file using serilog
-            Log.Information("EmployeeController: put Api method Inputparamter empdto.empid is", empdto.empid);//here capture th empid 
-            Log.Information("EmployeeController: put Api method Inputparamter empdto.empname is", empdto.empname);//here capture th empid
-            Log.Information("EmployeeController: put Api method Inputparamter empdto.empsalary is", empdto.empsalary);//here capture th empid
+            Log.Information($"EmployeeController: put Api method Excution Starts and Current Loggedin username:{userName}");//logg the message in text file using serilog
+            Log.Information($"EmployeeController: put Api method Inputparamter empdto.empid is {empdto.empid}");//here capture th empid 
+            Log.Information($"EmployeeController: put Api method Inputparamter empdto.empname is {empdto.empname}");//here capture th empid
+            Log.Information($"EmployeeController: put Api method Inputparamter empdto.empsalary is {empdto.empsalary}");//here capture th empid
             #endregion
 
             #region Database Logging the mesages using custom logging factory

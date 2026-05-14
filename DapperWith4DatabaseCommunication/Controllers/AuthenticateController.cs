@@ -31,15 +31,22 @@ namespace DapperWith4DatabaseCommunication.Controllers
             return Ok(res);
         }
         [HttpPost]
-        [Route("UserSignIn1")]//Siginin/Login both are same.
+        [Route("UserSignIn")]//Siginin/Login both are same.
         //Here i am verifyibg the username and password ,once it will valid i am generting the token.
         public async Task<IActionResult> UserSignIn([FromBody] LoginDTO loginDTOObj)
         {
             UserLoginResponse loginResponseObj = new UserLoginResponse();
-            if (!ModelState.IsValid)
+            //Below process is recomended to validate the apis filed for validation.realtime use this process.
+            var validationMessages = ValidationMessages.UserSignIn(loginDTOObj);
+            if (validationMessages.Length > 0)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+
+                return StatusCode(StatusCodes.Status400BadRequest, Convert.ToString(validationMessages));
             }
+            //if (!ModelState.IsValid)
+            //{//this way not rememendedway to implemt validations
+            //    return StatusCode(StatusCodes.Status400BadRequest, ModelState);
+            //}
             else
             {
                 var res = await _authenticateService.UserSignIn(loginDTOObj);
